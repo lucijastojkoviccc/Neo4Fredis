@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Neo4Fredis.Models.Entities.Korisnik>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+<div class="container pt-5">
+    <div class="row">
+        @*<div class="col-md-6">
+            <a class="btn btn-dark" href="/Author/Add">+ Add more</a>
+        </div>*@
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Svi zainteresovani</h3>
+
+            <table  class="table table-stripped table-bordered-dark">
+                <thead>
+                    <tr>
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                                             
+                        <th>Email</th>
+                        <th>Broj telefona</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model){
+                    <tr>
+                        <td>@item.Ime</td>
+                        <td>@item.Prezime</td>
+                        <td>@item.Email</td>
+                        @*<td>@item.Kategorije</td>*@
+                        <td>@item.Telefon</td>
+                        @* <td><button type="submit">ZainteresujSe</button></td> *@
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

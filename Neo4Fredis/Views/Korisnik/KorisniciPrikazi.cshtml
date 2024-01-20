@@ -1,0 +1,18 @@
+﻿@using System.Security.Claims
+@model Neo4Fredis.Models.Entities.Korisnik
+
+<h1>Profil korisnika: </h1>
+
+<p>Ime: @Model.Ime</p>
+<p>Prezime: @Model.Prezime</p>
+<p>Email: @Model.Email</p>
+<p>Broj telefona: @Model.Telefon</p>
+
+<h3>Aktivnosti</h3>
+<p><a href="@Url.Action("GetUsersPlacesPage", "MestoZaIzlaske", new { korisnickoIme = Model.KorisnickoIme })">Mesta za koja je zainteresovan</a></p>
+
+<a href="/Chat/ChatVjuKorisnik">Chat</a>
+
+<form method="post" asp-controller="Korisnik" asp-action="Logout">
+    <button class="btn btn-info">Odjavite se</button>
+</form>

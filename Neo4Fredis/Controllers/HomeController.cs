@@ -13,6 +13,11 @@ namespace Neo4Fredis.Controllers
             _logger = logger;
         }
 
+        public IActionResult WelcomePage()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();

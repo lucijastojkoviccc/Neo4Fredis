@@ -1,0 +1,56 @@
+﻿@model Neo4Fredis.Models.Entities.MestoZaIzlaske
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Dodaj novo mesto za izlaske</h1>
+
+
+<div class = "container pt-5">
+    <div class = "row">
+        <div class = "col-md-6">
+            <h4>Dodaj mesto</h4>
+            <form asp-action="Add" method="POST">
+     
+                <div class="form-group">
+                    <label asp-for="Naziv">Naziv</label>
+                    <input type="text" class="form-control" asp-for="Naziv" />
+                    <span asp-validation-for="Naziv" class="text-danger"></span>
+                </div>
+    @*            <div class="form-group">                                 mozda ovde da ide ono za broj zainteresovanih korisnika
+                    <label asp-for="BrojUcesnika ">Broj ucenika</label>
+                    <input type="text" class="form-control" asp-for="BrojUcesnika" />
+                    <span asp-validation-for="BrojUcesnika" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="Adresa">Adresa</label>
+                    <input type="textarea" class="form-control" asp-for="Adresa" />
+                    <span asp-validation-for="Adresa" class="text-danger"></span>
+                </div>
+     
+                 <div class="form-group">
+                    <label asp-for="Opis">Opis</label>
+                    <input type="textarea" class="form-control" asp-for="Opis" />
+                    <span asp-validation-for="Opis" class="text-danger"></span>
+                </div>
+      
+
+                @if (TempData["msg"] != null)
+                {
+                    <div class="form-group">
+                        @TempData["msg"]
+                    </div>
+                }
+                <div class="form-group pt-3">
+                    <button type="submit">Objavi</button>
+                    <a href="/MestoZaIzlaske/GetAll">Sva mesta</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

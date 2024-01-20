@@ -25,6 +25,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="LoggedInKorisnik">Korisnik</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Korisnik">Korisnik</a>
+                                <!-- You can replace "Account" and "Login" with your actual login controller and action -->
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MestoZaIzlaske" asp-action="MestoZaIzlaske">Mesta za izlaske</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="SviKorisnici">Svi korisnici</a>
+
+                        </li>
                     </ul>
                 </div>
             </div>

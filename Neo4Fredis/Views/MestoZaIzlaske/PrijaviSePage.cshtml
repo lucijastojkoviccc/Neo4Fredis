@@ -1,0 +1,17 @@
+﻿@model Neo4Fredis.Models.DTOs.ZainteresovanZa
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form asp-action="PrijaviSe" method="post">
+    <div>
+        <label asp-for="ImeMesta">Mesto</label>
+        <input type="text" class="form-control" asp-for="ImeMesta" />
+        
+        <div class="form-group pt-3">
+            <button type="submit">Zainteresuj se</button>
+        </div>
+    </div>
+</form>

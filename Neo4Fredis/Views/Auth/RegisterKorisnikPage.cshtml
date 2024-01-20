@@ -1,0 +1,65 @@
+﻿@model Neo4Fredis.Models.Entities.Korisnik
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Registruj se!</h1>
+
+
+
+<div class = "container pt-5">
+    <div class = "row">
+        <div class = "col-md-6">
+            <h4>Add new User</h4>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Ime">Ime</label>
+                    <input type="text" class="form-control" asp-for="Ime" />
+                    <span asp-validation-for="Ime" class="text-danger"></span>
+                </div>
+                 <div class="form-group">
+                    <label asp-for="Prezime">Prezime</label>
+                    <input type="text" class="form-control" asp-for="Ime" />
+                    <span asp-validation-for="Ime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Email adresa</label>
+                    <input type="text" class="form-control" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="KorisnickoIme">Korisnicko ime</label>
+                    <input type="textarea" class="form-control" asp-for="KorisnickoIme" />
+                    <span asp-validation-for="KorisnickoIme" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Lozinka">Lozinka</label>
+                    <input type="text" class="form-control" asp-for="Lozinka" />
+                    <span asp-validation-for="Lozinka" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Telefon">Kontakt telefon</label>
+                    <input type="text" class="form-control" asp-for="Telefon" />
+                    <span asp-validation-for="Telefon" class="text-danger"></span>
+                </div>
+               
+                
+
+                @if (TempData["msg"] != null)
+                {
+                    <div class="form-group">
+                        @TempData["msg"]
+                    </div>
+                }
+                <div class="form-group pt-3">
+                    <button type="submit">Save</button>
+                    <a href="/Korisnik/GetAll">Svi korisnici</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

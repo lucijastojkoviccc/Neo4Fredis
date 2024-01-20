@@ -1,0 +1,178 @@
+﻿@model Neo4Fredis.Models.DTOs.PorukaDTO
+@using System.Security.Claims
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var p = ViewBag.PORUKA;
+    var k = ViewBag.KORISNIK;
+}
+@{
+    //var ime = Context.User.FindFirstValue("Ime");
+    var a = Context.User.FindFirstValue(ClaimTypes.Email);
+
+}
+
+
+   <div class="container">
+        <div class="row p-1">
+        <div class="chat-header">
+            <label for="userKorisnik">KORISNIK: </label>
+            <span id="userKorisnik" class="font-weight-bold">@a</span>
+        </div>
+           @*  <div class="col-1"></div>
+             <label for="userKorisnik">KORISNIK_USER </label>    
+             <div class="col-5"><span id="userKorisnik">@a</span></div> *@
+            @*<div class="col-5"><input type="text" id="userInput" /></div>*@
+        </div>
+        <div class="row p-1">
+           @*  <div class="col-1">Message</div>
+            <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
+        </div>
+        <div class="row p-1">
+            <div class="col-6 text-end">
+                <input type="button" id="sendButtonKorisnik" value="Send Message To All" />
+                
+            </div>
+        </div> *@
+        <div class="row p-1">
+            @* <div class="col-6">
+                <hr />
+            </div>
+        </div>
+        <div class="row p-1">
+            <div class="col-6"> *@
+                <ul id="messagesList"></ul>
+            </div>
+        </div>
+    </div>
+   
+    <form asp-action="Send" method="post">
+         <div class="form-group">
+                <label asp-for="poruka">Poruka</label>
+                <input type="text" class="form-control" asp-for="poruka" />
+                <span asp-validation-for="poruka" class="text-danger"></span>
+         </div>
+        <input type="submit" id="salji" value="Posalji" />
+    </form>
+    <hr/>
+
+
+    <div id="incomingMessageContainer" class="incoming-message-container"></div>
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+     <script>
+        // Simulacija dolaska poruke
+        var incomingMessageContainer = document.getElementById('incomingMessageContainer');
+
+        // Hardkodirana poruka
+        var hardCodedMessage = "Dolazna poruka: Ovde cete videti poruke.";
+
+        // Kreiranje elementa za prikazivanje dolazne poruke
+        var messageElement = document.createElement('div');
+        messageElement.textContent = hardCodedMessage;
+
+        // Dodavanje elementa u kontejner dolaznih poruka
+        incomingMessageContainer.appendChild(messageElement);
+    </script> 
+    @* <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        document.getElementById("salji").addEventListener("click", function (event) {
+            var user = document.getElementById("userKorisnik").innerHTML;
+            var message = document.getElementById("messageInput").value;
+
+            // var porukaInput = document.querySelector('input[name="poruka"]');
+            // var novaPoruka = porukaInput.value;
+
+            // // Kreiraj element za prikazivanje nove poruke
+            // var novaPorukaElement = document.createElement('div');
+            // novaPorukaElement.classList.add('incoming-message');
+            // novaPorukaElement.textContent = "Poslata poruka: " + novaPoruka;
+
+            // // Dodaj element u kontejner dolaznih poruka
+            // incomingMessageContainer.appendChild(novaPorukaElement);
+
+            // // Očisti polje za unos poruke nakon slanja
+            // porukaInput.value = "";
+
+            //connection.invoke("SendMessageNovo", user, message).catch(function (err) {
+            //    return console.error(err.toString());
+            //});
+            connection.invoke("Pub", user, message).catch(function (err) {
+                return console.error(err.toString());
+            });
+            connection.invoke("Sub").catch(function (err) {
+                return console.error(err.toString());
+            });          
+            
+            event.preventDefault();
+        });
+    </script> *@
+     <script>
+        document.getElementById('salji').addEventListener('click', function () {
+           // Pokupi vrednost iz polja za unos poruke
+            var porukaInput = document.querySelector('input[name="poruka"]');
+            var novaPoruka = porukaInput.value;
+
+           // Kreiraj element za prikazivanje nove poruke
+            var novaPorukaElement = document.createElement('div');
+            novaPorukaElement.classList.add('incoming-message');
+            novaPorukaElement.textContent = "Poslata poruka: " + novaPoruka;
+
+           // Dodaj element u kontejner dolaznih poruka
+            incomingMessageContainer.appendChild(novaPorukaElement);
+
+            //Očisti polje za unos poruke nakon slanja
+            //porukaInput.value = "";
+        });
+    </script> 
+ 
+    <form method="get" asp-controller="Chat" asp-action="Receive">
+        <input type="submit" id="primi" value="Prikazi poruku" />
+         <div class="form-group">
+             <p>@p</p>
+             <p>@k</p>
+             <br />
+         </div>
+        
+    </form>
+    <script>
+        document.getElementById('primi').addEventListener('click', function () {
+            // Koristi AJAX za asinhrono dobijanje poruke od servera
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var receivedMessage = JSON.parse(xhr.responseText);
+                    document.getElementById('receivedMessage').textContent = receivedMessage;
+                }
+            };
+
+            xhr.open('GET', '/Chat/Receive', true);
+            xhr.send();
+        });
+    </script>
+
+    <form method="post" asp-controller="Korisnik" asp-action="Logout">
+        <button class="btn btn-info">Logout</button>
+    </form>
+<!-- Vaš postojeći HTML kod odozgo -->
+
+@* <div class="container">
+    <div class="chat-header">
+        <label for="userKorisnik">KORISNIK_USER: </label>
+        <span id="userKorisnik" class="font-weight-bold">@k</span>
+    </div>
+    <div id="messagesList" class="chat-messages">
+        <!-- Poruke će se dinamički dodavati ovde -->
+    </div>
+    <div class="chat-input">
+        <input type="text" class="form-control" id="messageInput" placeholder="Type your message here" />
+        <button type="button" id="sendButtonKorisnik" class="btn btn-primary">Send</button>
+    </div>
+</div>
+ *@
+<!-- Vaš postojeći HTML kod ispod -->
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chatK.js"></script>

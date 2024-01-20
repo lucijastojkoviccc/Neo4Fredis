@@ -1,0 +1,23 @@
+﻿@using System.Security.Claims
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    //var ime = Context.User.FindFirstValue("Ime");
+    var a = Context.User.FindFirstValue(ClaimTypes.Email);
+   
+}
+
+<h1>Dobrodošli korisniče</h1>
+<h3 id="dobrodosao"> @a</h3>
+<p> <a href="/MestoZaIzlaske/GetAll">Sva mesta</a> </p>
+<p> <a href="/MestoZaIzlaske/PrijaviSePage">Zainteresuj se za mesto</a> </p>
+<p> <a href="/MestoZaIzlaske/GetMyPlaces">Moja mesta</a> </p>
+@*<p> <a href="/MestoZaIzlaske/ZainteresujSePage">Zainteresujte se za mesto</a> </p>*@
+<p> <a href="/Korisnik/UpdateKorisnik">Izmenite lozinku</a> </p>
+<a href="/Chat/ChatVjuKorisnik">Chat</a>
+
+<form method = "post" asp-controller="Korisnik" asp-action="Logout">
+    <button class="btn btn-info">Odjavite se</button>
+   
+</form>
